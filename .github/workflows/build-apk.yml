@@ -18,19 +18,15 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
-      # 🔥 PASO CLAVE: Instalar SDK de Android y herramientas
-      - name: Instalar Android SDK
-        uses: android-actions/setup-android@v3
-
-      # 🔥 PASO CLAVE: Configurar Gradle SIN usar 'gradlew'
-      - name: Configurar Gradle
+      # Especificamos Gradle 8.7 (la versión que necesita el plugin de Android)
+      - name: Configurar Gradle 8.7
         uses: gradle/gradle-build-action@v2
         with:
-          gradle-version: '8.5'
+          gradle-version: 8.7
 
-      # Compilamos directamente con el comando 'gradle'
+      # Ahora compilamos
       - name: Compilar APK Debug
-        run: gradle assembleDebug --no-daemon
+        run: gradle assembleDebug
 
       - name: Subir APK a GitHub
         uses: actions/upload-artifact@v4
